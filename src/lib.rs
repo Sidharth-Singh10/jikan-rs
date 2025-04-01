@@ -15,6 +15,7 @@ pub mod people;
 pub mod producer;
 pub mod random;
 pub mod recommendations;
+pub mod review;
 pub mod schedule;
 pub mod top;
 pub mod users;
