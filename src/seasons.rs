@@ -1,11 +1,6 @@
-// seasons.rs
 use serde::{Deserialize, Serialize};
 
-use crate::{
-    anime::*, 
-    common::Pagination, 
-    JikanClient, JikanError
-};
+use crate::{JikanClient, JikanError, anime::*, common::Pagination};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SeasonResponse {
@@ -158,7 +153,8 @@ impl JikanClient {
             String::new()
         };
 
-        self.get(&format!("/seasons/{}/{}{}", year, season, query)).await
+        self.get(&format!("/seasons/{}/{}{}", year, season, query))
+            .await
     }
 
     /// Returns the list of available seasons

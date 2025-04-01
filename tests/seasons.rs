@@ -8,7 +8,9 @@ mod common;
 #[serial]
 pub async fn get_season_now() {
     let client = JikanClient::new();
-    let result = client.get_season_now(None, None, None, None, None, None).await;
+    let result = client
+        .get_season_now(None, None, None, None, None, None)
+        .await;
     assert!(result.is_ok());
     wait_between_tests().await;
 }
@@ -109,7 +111,7 @@ pub async fn get_season_upcoming_with_filters() {
 #[serial]
 pub async fn test_season_filter_types() {
     let client = JikanClient::new();
-    
+
     // Testing different filter types
     let filters = vec![
         FilterType::TV,
@@ -119,7 +121,7 @@ pub async fn test_season_filter_types() {
         FilterType::Special,
         FilterType::Music,
     ];
-    
+
     for filter in filters {
         let result = client
             .get_season_now(Some(filter), None, None, None, Some(1), Some(3))

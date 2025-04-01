@@ -17,9 +17,9 @@ pub mod random;
 pub mod recommendations;
 pub mod review;
 pub mod schedule;
+pub mod seasons;
 pub mod top;
 pub mod users;
-pub mod seasons;
 
 const API_BASE_URL: &str = "https://api.jikan.moe/v4";
 
