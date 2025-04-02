@@ -2,7 +2,7 @@ use crate::common::rate_limited_test;
 use jikan_rs::JikanClient;
 mod common;
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_anime() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -12,7 +12,7 @@ async fn get_anime() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_anime_full() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -22,7 +22,7 @@ async fn get_anime_full() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_anime_characters() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -32,7 +32,7 @@ async fn get_anime_characters() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_anime_staff() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -42,7 +42,7 @@ async fn get_anime_staff() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_anime_episodes() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -52,7 +52,7 @@ async fn get_anime_episodes() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_anime_videos() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -62,7 +62,7 @@ async fn get_anime_videos() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_anime_news() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -72,7 +72,7 @@ async fn get_anime_news() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_anime_forum() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -82,7 +82,7 @@ async fn get_anime_forum() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_anime_themes() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -92,7 +92,7 @@ async fn get_anime_themes() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_anime_recommendations() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -102,7 +102,7 @@ async fn get_anime_recommendations() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_anime_userupdates() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -112,7 +112,7 @@ async fn get_anime_userupdates() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_anime_reviews() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -122,7 +122,7 @@ async fn get_anime_reviews() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_anime_external() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -132,7 +132,7 @@ async fn get_anime_external() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_anime_streaming() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -142,7 +142,7 @@ async fn get_anime_streaming() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_nonexistent_anime() {
     rate_limited_test(|| async {
         let client = JikanClient::new();

@@ -4,7 +4,7 @@ use jikan_rs::character::OrderBy;
 use jikan_rs::character::Sort;
 mod common;
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 pub async fn get_character_by_id() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -14,7 +14,7 @@ pub async fn get_character_by_id() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 pub async fn get_character_full_by_id() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -24,7 +24,7 @@ pub async fn get_character_full_by_id() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 pub async fn get_character_anime() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -34,7 +34,7 @@ pub async fn get_character_anime() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 pub async fn get_character_manga() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -44,7 +44,7 @@ pub async fn get_character_manga() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 pub async fn get_character_voices() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -54,7 +54,7 @@ pub async fn get_character_voices() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 pub async fn get_characters() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -64,7 +64,7 @@ pub async fn get_characters() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 pub async fn get_character_pictures() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -74,7 +74,7 @@ pub async fn get_character_pictures() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 pub async fn get_character_search() {
     rate_limited_test(|| async {
         let client = JikanClient::new();

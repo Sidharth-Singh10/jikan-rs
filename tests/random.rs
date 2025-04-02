@@ -2,7 +2,7 @@ use common::rate_limited_test;
 use jikan_rs::JikanClient;
 mod common;
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_anime_random() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -12,7 +12,7 @@ async fn get_anime_random() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_manga_random() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -22,7 +22,7 @@ async fn get_manga_random() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_user_random() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -32,7 +32,7 @@ async fn get_user_random() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_character_random() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -42,7 +42,7 @@ async fn get_character_random() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_person_random() {
     rate_limited_test(|| async {
         let client = JikanClient::new();

@@ -2,7 +2,7 @@ use crate::common::rate_limited_test;
 use jikan_rs::{JikanClient, JikanError, clubs::ClubSearchParams};
 mod common;
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_club_by_id() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -12,7 +12,7 @@ async fn get_club_by_id() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_club_members() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -22,7 +22,7 @@ async fn get_club_members() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_club_staff() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -32,7 +32,7 @@ async fn get_club_staff() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_club_relations() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -42,7 +42,7 @@ async fn get_club_relations() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_club_search() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -57,7 +57,7 @@ async fn get_club_search() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_club_search_with_category() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -73,7 +73,7 @@ async fn get_club_search_with_category() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_club_search_with_order() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -89,7 +89,7 @@ async fn get_club_search_with_order() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_club_search_with_letter() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -104,7 +104,7 @@ async fn get_club_search_with_letter() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_nonexistent_club() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -114,7 +114,7 @@ async fn get_nonexistent_club() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_nonexistent_club_members() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -124,7 +124,7 @@ async fn get_nonexistent_club_members() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_nonexistent_club_staff() {
     rate_limited_test(|| async {
         let client = JikanClient::new();

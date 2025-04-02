@@ -2,7 +2,7 @@ use common::rate_limited_test;
 use jikan_rs::JikanClient;
 mod common;
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 pub async fn get_recent_anime_reviews() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -13,7 +13,7 @@ pub async fn get_recent_anime_reviews() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 pub async fn get_recent_anime_reviews_with_preliminary() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -25,7 +25,7 @@ pub async fn get_recent_anime_reviews_with_preliminary() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 pub async fn get_recent_anime_reviews_with_spoilers() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -37,7 +37,7 @@ pub async fn get_recent_anime_reviews_with_spoilers() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 pub async fn get_recent_manga_reviews() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -47,7 +47,7 @@ pub async fn get_recent_manga_reviews() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 pub async fn get_recent_manga_reviews_with_preliminary() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -59,7 +59,7 @@ pub async fn get_recent_manga_reviews_with_preliminary() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 pub async fn get_recent_manga_reviews_with_spoilers() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -71,7 +71,7 @@ pub async fn get_recent_manga_reviews_with_spoilers() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 pub async fn get_recent_anime_reviews_with_all_params() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -85,7 +85,7 @@ pub async fn get_recent_anime_reviews_with_all_params() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 pub async fn get_recent_manga_reviews_with_all_params() {
     rate_limited_test(|| async {
         // Test manga reviews with all parameters

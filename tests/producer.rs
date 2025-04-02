@@ -2,7 +2,7 @@ use common::rate_limited_test;
 use jikan_rs::JikanClient;
 mod common;
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_producer_by_id() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -12,7 +12,7 @@ async fn get_producer_by_id() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_producer_by_id_full() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -22,7 +22,7 @@ async fn get_producer_by_id_full() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_producer_external() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -32,7 +32,7 @@ async fn get_producer_external() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_producer_search() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -44,7 +44,7 @@ async fn get_producer_search() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_producers() {
     rate_limited_test(|| async {
         let client = JikanClient::new();

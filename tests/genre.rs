@@ -4,7 +4,7 @@ use jikan_rs::JikanClient;
 use jikan_rs::genre::GenreFilter;
 mod common;
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_anime_genres() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -14,7 +14,7 @@ async fn get_anime_genres() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_anime_genres_genres() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -24,7 +24,7 @@ async fn get_anime_genres_genres() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_anime_genres_explicit() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -34,7 +34,7 @@ async fn get_anime_genres_explicit() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_anime_genres_themes() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -44,7 +44,7 @@ async fn get_anime_genres_themes() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_anime_genres_demographics() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -54,7 +54,7 @@ async fn get_anime_genres_demographics() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_manga_genres() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -64,7 +64,7 @@ async fn get_manga_genres() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_manga_genres_genres() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -74,7 +74,7 @@ async fn get_manga_genres_genres() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_manga_genres_explicit() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -84,7 +84,7 @@ async fn get_manga_genres_explicit() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_manga_genres_themes() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -94,7 +94,7 @@ async fn get_manga_genres_themes() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_manga_genres_demographics() {
     let client = JikanClient::new();
     let result = client.get_manga_genres(GenreFilter::Demographics).await;

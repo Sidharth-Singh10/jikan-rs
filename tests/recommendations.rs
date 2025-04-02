@@ -2,7 +2,7 @@ use common::rate_limited_test;
 use jikan_rs::JikanClient;
 mod common;
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_recent_anime_recommendations() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -12,7 +12,7 @@ async fn get_recent_anime_recommendations() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_recent_anime_recommendations_with_page() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -22,7 +22,7 @@ async fn get_recent_anime_recommendations_with_page() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_recent_manga_recommendations() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -32,7 +32,7 @@ async fn get_recent_manga_recommendations() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_recent_manga_recommendations_with_page() {
     rate_limited_test(|| async {
         let client = JikanClient::new();

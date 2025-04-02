@@ -4,7 +4,7 @@ use jikan_rs::JikanClient;
 use jikan_rs::magazines::*;
 mod common;
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_magazines_no_params() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -16,7 +16,7 @@ async fn get_magazines_no_params() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_magazines_with_page() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -28,7 +28,7 @@ async fn get_magazines_with_page() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_magazines_with_limit() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -40,7 +40,7 @@ async fn get_magazines_with_limit() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_magazines_with_query() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -59,7 +59,7 @@ async fn get_magazines_with_query() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_magazines_with_order() {
     let client = JikanClient::new();
     let result = client
@@ -69,7 +69,7 @@ async fn get_magazines_with_order() {
     wait_between_tests().await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_magazines_with_sort() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -81,7 +81,7 @@ async fn get_magazines_with_sort() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_magazines_with_letter() {
     rate_limited_test(|| async {
         let client = JikanClient::new();

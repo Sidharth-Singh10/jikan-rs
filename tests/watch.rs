@@ -3,7 +3,7 @@ use jikan_rs::JikanClient;
 
 mod common;
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn test_get_watch_recent_episodes() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -21,11 +21,11 @@ async fn test_get_watch_recent_episodes() {
             }
             Err(e) => panic!("Failed to fetch recent episodes: {}", e),
         }
-    
-    }).await;
+    })
+    .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn test_get_watch_popular_episodes() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -43,12 +43,11 @@ async fn test_get_watch_popular_episodes() {
             }
             Err(e) => panic!("Failed to fetch popular episodes: {}", e),
         }
-    
-    }).await;
-    
+    })
+    .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn test_get_watch_recent_promos_no_page() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -67,11 +66,11 @@ async fn test_get_watch_recent_promos_no_page() {
             }
             Err(e) => panic!("Failed to fetch recent promos without page: {}", e),
         }
-    
-    }).await;
+    })
+    .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn test_get_watch_recent_promos_with_page() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -90,11 +89,11 @@ async fn test_get_watch_recent_promos_with_page() {
             }
             Err(e) => panic!("Failed to fetch recent promos with page: {}", e),
         }
-    
-    }).await;
+    })
+    .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn test_get_watch_popular_promos() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -114,5 +113,6 @@ async fn test_get_watch_popular_promos() {
             }
             Err(e) => panic!("Failed to fetch popular promos: {}", e),
         }
-    }).await;
+    })
+    .await;
 }

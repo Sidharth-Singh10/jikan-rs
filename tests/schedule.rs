@@ -2,7 +2,7 @@ use common::rate_limited_test;
 use jikan_rs::{JikanClient, schedule::ScheduleFilter};
 mod common;
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_schedules() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -14,7 +14,7 @@ async fn get_schedules() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_schedules_with_filter() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -26,7 +26,7 @@ async fn get_schedules_with_filter() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_schedules_with_kids_filter() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -38,7 +38,7 @@ async fn get_schedules_with_kids_filter() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_schedules_with_sfw_filter() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -50,7 +50,7 @@ async fn get_schedules_with_sfw_filter() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_schedules_with_pagination() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -62,10 +62,11 @@ async fn get_schedules_with_pagination() {
             // Check that pagination is working as expected
             assert!(response.data.len() <= 5);
         }
-    }).await;
+    })
+    .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_schedules_with_multiple_params() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -80,10 +81,11 @@ async fn get_schedules_with_multiple_params() {
             )
             .await;
         assert!(result.is_ok());
-    }).await;
+    })
+    .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_schedules_with_unapproved() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -91,10 +93,11 @@ async fn get_schedules_with_unapproved() {
             .get_schedules(None, None, None, Some(true), None, None)
             .await;
         assert!(result.is_ok());
-    }).await;
+    })
+    .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_schedules_data_access() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -117,10 +120,11 @@ async fn get_schedules_data_access() {
         } else {
             assert!(false, "Response was not Ok");
         }
-    }).await;
+    })
+    .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_schedules_with_invalid_page() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -135,5 +139,6 @@ async fn get_schedules_with_invalid_page() {
         } else {
             assert!(false, "Response should be Ok with empty data");
         }
-    }).await;
+    })
+    .await;
 }

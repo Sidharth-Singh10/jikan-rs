@@ -2,7 +2,7 @@ use common::rate_limited_test;
 use jikan_rs::JikanClient;
 mod common;
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_person_from_id() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -12,7 +12,7 @@ async fn get_person_from_id() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_person_full() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -22,7 +22,7 @@ async fn get_person_full() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_person_anime() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -32,7 +32,7 @@ async fn get_person_anime() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_person_manga() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -42,7 +42,7 @@ async fn get_person_manga() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_person_voice() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -52,7 +52,7 @@ async fn get_person_voice() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_person_pictures() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -62,7 +62,7 @@ async fn get_person_pictures() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_person() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
@@ -72,7 +72,7 @@ async fn get_person() {
     .await;
 }
 
-#[tokio::test]
+#[tokio::test(flavor = "multi_thread", worker_threads = 4)]
 async fn get_person_search() {
     rate_limited_test(|| async {
         let client = JikanClient::new();
