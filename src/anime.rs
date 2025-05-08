@@ -135,7 +135,47 @@ pub struct SearchParams<'a> {
     pub end_date: Option<&'a str>,
 }
 
+impl<'a> Default for SearchParams<'a> {
+    fn default() -> Self {
+        SearchParams {
+            unapproved: None,
+            page: None,
+            limit: None,
+            type_: None,
+            score: None,
+            min_score: None,
+            max_score: None,
+            status: None,
+            rating: None,
+            sfw: None,
+            genres: None,
+            genres_exclude: None,
+            order_by: None,
+            sort: None,
+            letter: None,
+            producers: None,
+            start_date: None,
+            end_date: None,
+        }
+    }
+}
+
 impl JikanClient {
+    fn format_search_query(query: &str) -> String {
+        query
+            .to_lowercase()
+            .chars()
+            .map(|c| match c {
+                ' ' => '-',
+                c if c.is_alphanumeric() => c,
+                _ => ' ',
+            })
+            .collect::<String>()
+            .split_whitespace()
+            .collect::<Vec<&str>>()
+            .join("-")
+    }
+
     pub async fn get_anime(&self, id: i32) -> Result<AnimeResponse<Anime>, JikanError> {
         self.get(&format!("/anime/{}", id)).await
     }
@@ -151,8 +191,9 @@ impl JikanClient {
             )));
         }
 
+        let formatted_q = Self::format_search_query(q);
         let mut query_params = Vec::new();
-        query_params.push(format!("q={}", q));
+        query_params.push(format!("q={}", formatted_q));
 
         if let Some(p) = params {
             if let Some(u) = p.unapproved {
