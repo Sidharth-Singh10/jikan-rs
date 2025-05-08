@@ -14,6 +14,15 @@ async fn get_anime() {
 
 #[tokio::test]
 #[serial]
+async fn get_anime_search() {
+    let client = JikanClient::new();
+    let result = client.get_anime_search("naruto", None).await;
+    assert!(result.is_ok());
+    wait_between_tests().await;
+}
+
+#[tokio::test]
+#[serial]
 async fn get_anime_full() {
     let client = JikanClient::new();
     let result = client.get_anime_full(1).await;
