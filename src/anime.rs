@@ -100,9 +100,119 @@ pub struct EpisodeVideo {
     pub title: String,
 }
 
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub enum AnimeType {
+    TV,
+    Movie,
+    OVA,
+    Special,
+    ONA,
+    Music,
+    CM,
+    PV,
+    TVSpecial,
+}
+
+#[derive(Debug, Clone)]
+pub struct SearchParams<'a> {
+    pub unapproved: Option<bool>,
+    pub page: Option<u32>,
+    pub limit: Option<u32>,
+    pub type_: Option<AnimeType>,
+    pub score: Option<f32>,
+    pub min_score: Option<f32>,
+    pub max_score: Option<f32>,
+    pub status: Option<&'a str>,
+    pub rating: Option<&'a str>,
+    pub sfw: Option<bool>,
+    pub genres: Option<&'a str>,
+    pub genres_exclude: Option<&'a str>,
+    pub order_by: Option<&'a str>,
+    pub sort: Option<&'a str>,
+    pub letter: Option<&'a str>,
+    pub producers: Option<&'a str>,
+    pub start_date: Option<&'a str>,
+    pub end_date: Option<&'a str>,
+}
+
 impl JikanClient {
     pub async fn get_anime(&self, id: i32) -> Result<AnimeResponse<Anime>, JikanError> {
         self.get(&format!("/anime/{}", id)).await
+    }
+
+    pub async fn get_anime_search(
+        &self,
+        q: &str,
+        params: Option<SearchParams<'_>>,
+    ) -> Result<AnimeResponse<Vec<Anime>>, JikanError> {
+        if q.is_empty() {
+            return Err(JikanError::BadRequest(String::from(
+                "Param q must be specified!",
+            )));
+        }
+
+        let mut query_params = Vec::new();
+        query_params.push(format!("q={}", q));
+
+        if let Some(p) = params {
+            if let Some(u) = p.unapproved {
+                query_params.push(format!("unapproved={}", u));
+            }
+            if let Some(p) = p.page {
+                query_params.push(format!("page={}", p));
+            }
+            if let Some(l) = p.limit {
+                query_params.push(format!("limit={}", l));
+            }
+            if let Some(t) = p.type_ {
+                query_params.push(format!("type={:?}", t));
+            }
+            if let Some(s) = p.score {
+                query_params.push(format!("score={}", s));
+            }
+            if let Some(min) = p.min_score {
+                query_params.push(format!("min_score={}", min));
+            }
+            if let Some(max) = p.max_score {
+                query_params.push(format!("max_score={}", max));
+            }
+            if let Some(st) = p.status {
+                query_params.push(format!("status={}", st));
+            }
+            if let Some(r) = p.rating {
+                query_params.push(format!("rating={}", r));
+            }
+            if let Some(s) = p.sfw {
+                query_params.push(format!("sfw={}", s));
+            }
+            if let Some(g) = p.genres {
+                query_params.push(format!("genres={}", g));
+            }
+            if let Some(ge) = p.genres_exclude {
+                query_params.push(format!("genres_exclude={}", ge));
+            }
+            if let Some(o) = p.order_by {
+                query_params.push(format!("order_by={}", o));
+            }
+            if let Some(s) = p.sort {
+                query_params.push(format!("sort={}", s));
+            }
+            if let Some(l) = p.letter {
+                query_params.push(format!("letter={}", l));
+            }
+            if let Some(p) = p.producers {
+                query_params.push(format!("producers={}", p));
+            }
+            if let Some(s) = p.start_date {
+                query_params.push(format!("start_date={}", s));
+            }
+            if let Some(e) = p.end_date {
+                query_params.push(format!("end_date={}", e));
+            }
+        }
+
+        let query = format!("?{}", query_params.join("&"));
+        self.get(&format!("/anime{}", query)).await
     }
 
     pub async fn get_anime_full(&self, id: i32) -> Result<AnimeResponse<Anime>, JikanError> {
