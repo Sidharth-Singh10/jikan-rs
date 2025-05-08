@@ -1,5 +1,5 @@
 use crate::common::wait_between_tests;
-use jikan_rs::{anime::SearchParams, JikanClient, JikanError};
+use jikan_rs::{JikanClient, JikanError, anime::SearchParams};
 use serial_test::serial;
 mod common;
 
@@ -22,7 +22,9 @@ async fn get_anime_search() {
         limit: Some(5),
         ..Default::default()
     };
-    let result = client.get_anime_search("Dragon Ball: Z", Some(params)).await;
+    let result = client
+        .get_anime_search("Dragon Ball: Z", Some(params))
+        .await;
     assert!(result.is_ok());
     wait_between_tests().await;
 }

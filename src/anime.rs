@@ -135,7 +135,7 @@ pub struct SearchParams<'a> {
     pub end_date: Option<&'a str>,
 }
 
-impl<'a> Default for SearchParams<'a> {
+impl Default for SearchParams<'_> {
     fn default() -> Self {
         SearchParams {
             unapproved: None,
