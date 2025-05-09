@@ -221,14 +221,16 @@ impl JikanClient {
             if let Some(t) = p.type_ {
                 query_params.push(format!("type={:?}", t));
             }
-            if let Some(s) = p.score {
-                query_params.push(format!("score={}", s));
-            }
-            if let Some(min) = p.min_score {
-                query_params.push(format!("min_score={}", min));
-            }
-            if let Some(max) = p.max_score {
-                query_params.push(format!("max_score={}", max));
+            match p.score {     //* this is due the fact that the query may not have 'score' alongside 'min_score' or 'max_score'
+                Some(score) => query_params.push(format!("score={}", score)),
+                None => {
+                    if let Some(min) = p.min_score {
+                        query_params.push(format!("min_score={}", min));
+                    }
+                    if let Some(max) = p.max_score {
+                        query_params.push(format!("max_score={}", max));
+                    }
+                }
             }
             if let Some(st) = p.status {
                 query_params.push(format!("status={:?}", st));
