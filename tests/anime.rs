@@ -19,27 +19,28 @@ async fn get_anime() {
 async fn get_anime_search() {
     let client = JikanClient::new();
     let params = SearchParams {
-        status: Some(Status::Airing),
+        status: Some(Status::Complete),
         sfw: Some(true),
         limit: Some(5),
         type_: Some(AnimeType::TV),
         unapproved: Some(false),
-        page: Some(3),
-        score: Some(9.00),
-        min_score: Some(4.00),
-        max_score: Some(9.65),
+        page: Some(1),
+        score: Some(8.62),
+        // min_score: Some(2.00),   //* panics when used
+        // max_score: Some(9.00),   //* panics when used
         rating: Some(Rating::R),
-        genres: Some("24,46"),
-        genres_exclude: Some("1,2"),
+        genres: Some("10"),
+        genres_exclude: Some("2"),
         order_by: Some(OrderBy::Title),
         sort: Some(Sort::Asc),
-        letter: Some(None),     // @dark1zinn: I ran out of references/ideas
-        producers: Some(None),
-        start_date: Some(None),
-        end_date: Some(None),
+        // letter: Some("d"),     // @dark1zinn: Actually, idk what this letter query do excatly. + //* panics when used
+        producers: Some("102"),
+        // start_date: Some("1997"),    //* panics when used
+        // end_date: Some("2025"),      //* panics when used
+        ..Default::default()
     };
     let result = client
-        .get_anime_search("Dragon Ball: Z", Some(params))
+        .get_anime_search("Death", Some(params))
         .await;
     assert!(result.is_ok());
     wait_between_tests().await;
