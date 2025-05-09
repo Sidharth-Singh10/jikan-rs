@@ -113,7 +113,7 @@ pub enum AnimeType {
     TVSpecial,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Default, Debug, Clone)]
 pub struct SearchParams<'a> {
     pub unapproved: Option<bool>,
     pub page: Option<u32>,
@@ -133,31 +133,6 @@ pub struct SearchParams<'a> {
     pub producers: Option<&'a str>,
     pub start_date: Option<&'a str>,
     pub end_date: Option<&'a str>,
-}
-
-impl Default for SearchParams<'_> {
-    fn default() -> Self {
-        SearchParams {
-            unapproved: None,
-            page: None,
-            limit: None,
-            type_: None,
-            score: None,
-            min_score: None,
-            max_score: None,
-            status: None,
-            rating: None,
-            sfw: None,
-            genres: None,
-            genres_exclude: None,
-            order_by: None,
-            sort: None,
-            letter: None,
-            producers: None,
-            start_date: None,
-            end_date: None,
-        }
-    }
 }
 
 impl JikanClient {
