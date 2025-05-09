@@ -2,7 +2,7 @@
 use crate::{
     JikanClient, JikanError,
     anime::*,
-    character::*,
+    character::{Sort, OrderBy, *},
     common::{Images, Pagination},
     manga::*,
 };
