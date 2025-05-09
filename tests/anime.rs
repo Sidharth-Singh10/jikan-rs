@@ -1,5 +1,7 @@
 use crate::common::wait_between_tests;
-use jikan_rs::{JikanClient, JikanError, anime::SearchParams};
+use jikan_rs::{
+    anime::{AnimeType, OrderBy, Rating, SearchParams, Sort, Status}, JikanClient, JikanError
+};
 use serial_test::serial;
 mod common;
 
@@ -17,10 +19,24 @@ async fn get_anime() {
 async fn get_anime_search() {
     let client = JikanClient::new();
     let params = SearchParams {
-        status: Some("airing"),
+        status: Some(Status::Airing),
         sfw: Some(true),
         limit: Some(5),
-        ..Default::default()
+        type_: Some(AnimeType::TV),
+        unapproved: Some(false),
+        page: Some(3),
+        score: Some(9.00),
+        min_score: Some(4.00),
+        max_score: Some(9.65),
+        rating: Some(Rating::R),
+        genres: Some("24,46"),
+        genres_exclude: Some("1,2"),
+        order_by: Some(OrderBy::Title),
+        sort: Some(Sort::Asc),
+        letter: Some(None),     // @dark1zinn: I ran out of references/ideas
+        producers: Some(None),
+        start_date: Some(None),
+        end_date: Some(None),
     };
     let result = client
         .get_anime_search("Dragon Ball: Z", Some(params))
