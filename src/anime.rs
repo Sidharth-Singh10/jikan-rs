@@ -1,7 +1,7 @@
 // anime.rs
 use crate::{
     JikanClient, JikanError,
-    character::*,
+    character::Character,
     common::{DateRange, Images, Pagination},
     misc::*,
     people::*,
@@ -113,6 +113,44 @@ pub enum AnimeType {
     TVSpecial,
 }
 
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub enum Sort {
+    Asc,
+    Desc,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub enum OrderBy {
+    MalId,
+    Title,
+    StartDate,
+    EndDate,
+    Episodes,
+    Score,
+    ScoredBy,
+    Rank,
+    Popularity,
+    Members,
+    Favorites,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub enum Status {
+    Airing,
+    Complete,
+    Upcoming,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub enum Rating {
+    G,
+    Pg,
+    Pg13,
+    R17,
+    R,
+    Rx,
+}
+
 #[derive(Default, Debug, Clone)]
 pub struct SearchParams<'a> {
     pub unapproved: Option<bool>,
@@ -122,13 +160,13 @@ pub struct SearchParams<'a> {
     pub score: Option<f32>,
     pub min_score: Option<f32>,
     pub max_score: Option<f32>,
-    pub status: Option<&'a str>,
-    pub rating: Option<&'a str>,
+    pub status: Option<Status>,
+    pub rating: Option<Rating>,
     pub sfw: Option<bool>,
     pub genres: Option<&'a str>,
     pub genres_exclude: Option<&'a str>,
-    pub order_by: Option<&'a str>,
-    pub sort: Option<&'a str>,
+    pub order_by: Option<OrderBy>,
+    pub sort: Option<Sort>,
     pub letter: Option<&'a str>,
     pub producers: Option<&'a str>,
     pub start_date: Option<&'a str>,
@@ -193,10 +231,10 @@ impl JikanClient {
                 query_params.push(format!("max_score={}", max));
             }
             if let Some(st) = p.status {
-                query_params.push(format!("status={}", st));
+                query_params.push(format!("status={:?}", st));
             }
             if let Some(r) = p.rating {
-                query_params.push(format!("rating={}", r));
+                query_params.push(format!("rating={:?}", r));
             }
             if let Some(s) = p.sfw {
                 query_params.push(format!("sfw={}", s));
@@ -208,10 +246,10 @@ impl JikanClient {
                 query_params.push(format!("genres_exclude={}", ge));
             }
             if let Some(o) = p.order_by {
-                query_params.push(format!("order_by={}", o));
+                query_params.push(format!("order_by={:?}", o));
             }
             if let Some(s) = p.sort {
-                query_params.push(format!("sort={}", s));
+                query_params.push(format!("sort={:?}", s));
             }
             if let Some(l) = p.letter {
                 query_params.push(format!("letter={}", l));
