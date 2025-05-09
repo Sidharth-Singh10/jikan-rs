@@ -167,7 +167,6 @@ pub struct SearchParams<'a> {
     pub genres_exclude: Option<&'a str>,
     pub order_by: Option<OrderBy>,
     pub sort: Option<Sort>,
-    pub letter: Option<&'a str>,
     pub producers: Option<&'a str>,
     pub start_date: Option<&'a str>,
     pub end_date: Option<&'a str>,
@@ -252,9 +251,6 @@ impl JikanClient {
             }
             if let Some(s) = p.sort {
                 query_params.push(format!("sort={:?}", s));
-            }
-            if let Some(l) = p.letter {
-                query_params.push(format!("letter={}", l));
             }
             if let Some(p) = p.producers {
                 query_params.push(format!("producers={}", p));
