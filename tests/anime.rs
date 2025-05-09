@@ -25,18 +25,18 @@ async fn get_anime_search() {
         type_: Some(AnimeType::TV),
         unapproved: Some(false),
         page: Some(1),
-        score: Some(8.62),
-        // min_score: Some(2.00),   //* panics when used
-        // max_score: Some(9.00),   //* panics when used
+        // score: Some(8.62),   //* score can not be provided if there is an min_score or max_score
+        min_score: Some(2.00),
+        max_score: Some(9.00),
         rating: Some(Rating::R),
         genres: Some("10"),
         genres_exclude: Some("2"),
         order_by: Some(OrderBy::Title),
         sort: Some(Sort::Asc),
-        // letter: Some("d"),     // @dark1zinn: Actually, idk what this letter query do excatly. + //* panics when used
+        // letter: Some("d"),     //* this param can not be provided alongside the q param
         producers: Some("102"),
-        // start_date: Some("1997"),    //* panics when used
-        // end_date: Some("2025"),      //* panics when used
+        start_date: Some("1997-01-01"),    //* the param for these two MUST follow the YYYY-MM-DD date format
+        end_date: Some("2025-05-01"),      //*
         ..Default::default()
     };
     let result = client
