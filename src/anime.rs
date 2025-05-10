@@ -215,7 +215,18 @@ impl JikanClient {
                 query_params.push(format!("limit={}", l));
             }
             if let Some(t) = p.type_ {
-                query_params.push(format!("type={:?}", t));
+                let anime_type = match t {
+                    AnimeType::CM => "cm",
+                    AnimeType::Movie => "movie",
+                    AnimeType::Music => "music",
+                    AnimeType::ONA => "ona",
+                    AnimeType::OVA => "ova",
+                    AnimeType::PV => "pv",
+                    AnimeType::Special => "special",
+                    AnimeType::TV => "tv",
+                    AnimeType::TVSpecial => "tv_special",
+                };
+                query_params.push(format!("type={}", anime_type));
             }
             match p.score {
                 //* this is due the fact that the query may not have 'score' alongside 'min_score' or 'max_score'
@@ -230,10 +241,23 @@ impl JikanClient {
                 }
             }
             if let Some(st) = p.status {
-                query_params.push(format!("status={:?}", st));
+                let status = match st {
+                    Status::Airing => "airing",
+                    Status::Complete => "complete",
+                    Status::Upcoming => "upcoming",
+                };
+                query_params.push(format!("status={}", status));
             }
             if let Some(r) = p.rating {
-                query_params.push(format!("rating={:?}", r));
+                let rating = match r {
+                    Rating::G => "g",
+                    Rating::Pg => "pg",
+                    Rating::Pg13 => "pg13",
+                    Rating::R17 => "r17",
+                    Rating::R => "r",
+                    Rating::Rx => "rx",
+                };
+                query_params.push(format!("rating={}", rating));
             }
             if let Some(s) = p.sfw {
                 query_params.push(format!("sfw={}", s));
@@ -245,10 +269,27 @@ impl JikanClient {
                 query_params.push(format!("genres_exclude={}", ge));
             }
             if let Some(o) = p.order_by {
-                query_params.push(format!("order_by={:?}", o));
+                let order_by = match o {
+                    OrderBy::EndDate => "end_date",
+                    OrderBy::Episodes => "episodes",
+                    OrderBy::Favorites => "favorites",
+                    OrderBy::MalId => "mal_id",
+                    OrderBy::Members => "members",
+                    OrderBy::Popularity => "popularity",
+                    OrderBy::Rank => "rank",
+                    OrderBy::Score => "score",
+                    OrderBy::ScoredBy => "scored_by",
+                    OrderBy::StartDate => "start_date",
+                    OrderBy::Title => "title",
+                };
+                query_params.push(format!("order_by={}", order_by));
             }
             if let Some(s) = p.sort {
-                query_params.push(format!("sort={:?}", s));
+                let sort = match s {
+                    Sort::Asc => "asc",
+                    Sort::Desc => "desc",
+                };
+                query_params.push(format!("sort={}", sort));
             }
             if let Some(l) = p.letter {
                 query_params.push(format!("letter={}", l));
