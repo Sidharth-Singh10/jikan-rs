@@ -153,6 +153,7 @@ pub enum Rating {
 
 #[derive(Default, Debug, Clone)]
 pub struct SearchParams<'a> {
+    pub q: Option<&'a str>,
     pub unapproved: Option<bool>,
     pub page: Option<u32>,
     pub limit: Option<u32>,
@@ -167,6 +168,7 @@ pub struct SearchParams<'a> {
     pub genres_exclude: Option<&'a str>,
     pub order_by: Option<OrderBy>,
     pub sort: Option<Sort>,
+    pub letter: Option<&'a str>,
     pub producers: Option<&'a str>,
     pub start_date: Option<&'a str>,
     pub end_date: Option<&'a str>,
@@ -194,20 +196,15 @@ impl JikanClient {
 
     pub async fn get_anime_search(
         &self,
-        q: &str,
         params: Option<SearchParams<'_>>,
     ) -> Result<AnimeResponse<Vec<Anime>>, JikanError> {
-        if q.is_empty() {
-            return Err(JikanError::BadRequest(String::from(
-                "Param q must be specified!",
-            )));
-        }
-
-        let formatted_q = Self::format_search_query(q);
         let mut query_params = Vec::new();
-        query_params.push(format!("q={}", formatted_q));
 
         if let Some(p) = params {
+            if let Some(q) = p.q {
+                let formatted_q = Self::format_search_query(q);
+                query_params.push(format!("q={}", formatted_q));
+            }
             if let Some(u) = p.unapproved {
                 query_params.push(format!("unapproved={}", u));
             }
@@ -220,7 +217,8 @@ impl JikanClient {
             if let Some(t) = p.type_ {
                 query_params.push(format!("type={:?}", t));
             }
-            match p.score {     //* this is due the fact that the query may not have 'score' alongside 'min_score' or 'max_score'
+            match p.score {
+                //* this is due the fact that the query may not have 'score' alongside 'min_score' or 'max_score'
                 Some(score) => query_params.push(format!("score={}", score)),
                 None => {
                     if let Some(min) = p.min_score {
@@ -251,6 +249,9 @@ impl JikanClient {
             }
             if let Some(s) = p.sort {
                 query_params.push(format!("sort={:?}", s));
+            }
+            if let Some(l) = p.letter {
+                query_params.push(format!("letter={}", l));
             }
             if let Some(p) = p.producers {
                 query_params.push(format!("producers={}", p));
