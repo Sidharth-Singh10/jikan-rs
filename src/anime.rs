@@ -1,10 +1,15 @@
 // anime.rs
 use crate::{
-    common::structs::anime::AnimeExtended, enums::{
+    JikanClient, JikanError,
+    common::structs::anime::AnimeExtended,
+    enums::{
         anime::{AnimeOrder, AnimeRating, AnimeStatus, AnimeType},
         common::Sort,
         forum::ForumFilter,
-    }, format_search_query, response::Response, structs::{
+    },
+    format_search_query,
+    response::Response,
+    structs::{
         anime::{
             Anime, AnimeForum, AnimeRelation, AnimeStatistics, AnimeThemes, MoreInfo, StaffMember,
         },
@@ -14,7 +19,8 @@ use crate::{
         reviews::Review,
         users::UserUpdate,
         watch::{Episode, Videos},
-    }, utils::{ExternalEntry, Images}, JikanClient, JikanError
+    },
+    utils::{ExternalEntry, Images},
 };
 
 #[derive(Default)]
