@@ -52,7 +52,7 @@ async fn get_anime_search() {
 #[serial]
 async fn get_anime_full() {
     let client = JikanClient::new();
-    let result = client.get_anime_full(1).await;
+    let result = client.get_anime_full(52991).await;
     assert!(result.is_ok());
     wait_between_tests().await;
 }

@@ -1,14 +1,10 @@
 // anime.rs
 use crate::{
-    JikanClient, JikanError,
-    enums::{
+    common::structs::anime::AnimeExtended, enums::{
         anime::{AnimeOrder, AnimeRating, AnimeStatus, AnimeType},
         common::Sort,
         forum::ForumFilter,
-    },
-    format_search_query,
-    response::Response,
-    structs::{
+    }, format_search_query, response::Response, structs::{
         anime::{
             Anime, AnimeForum, AnimeRelation, AnimeStatistics, AnimeThemes, MoreInfo, StaffMember,
         },
@@ -18,8 +14,7 @@ use crate::{
         reviews::Review,
         users::UserUpdate,
         watch::{Episode, Videos},
-    },
-    utils::{ExternalEntry, Images},
+    }, utils::{ExternalEntry, Images}, JikanClient, JikanError
 };
 
 #[derive(Default)]
@@ -149,7 +144,7 @@ impl JikanClient {
         self.get(&format!("/anime{}", query)).await
     }
 
-    pub async fn get_anime_full(&self, id: i32) -> Result<Response<Anime>, JikanError> {
+    pub async fn get_anime_full(&self, id: i32) -> Result<Response<AnimeExtended>, JikanError> {
         self.get(&format!("/anime/{}/full", id)).await
     }
 

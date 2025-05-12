@@ -30,10 +30,16 @@ pub struct ImageSet {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct DateRangeProp {
+pub struct DateRangePropFromTo {
     pub day: Option<u32>,
     pub month: Option<u32>,
     pub year: Option<u32>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct DateRangeProp {
+    pub from: DateRangePropFromTo,
+    pub to: Option<DateRangePropFromTo>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
