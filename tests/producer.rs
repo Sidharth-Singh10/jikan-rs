@@ -1,51 +1,21 @@
-use crate::common::wait_between_tests;
-use jikan_rs::JikanClient;
-use serial_test::serial;
 mod common;
+use crate::common::macs::NamedTestJob;
 
-#[tokio::test]
-#[serial]
-async fn get_producer_by_id() {
-    let client = JikanClient::new();
-    let result = client.get_producer_by_id(1).await;
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn get_producer_by_id_full() {
-    let client = JikanClient::new();
-    let result = client.get_producer_full_by_id(1).await;
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn get_producer_external() {
-    let client = JikanClient::new();
-    let result = client.get_producer_external(1).await;
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn get_producer_search() {
-    let client = JikanClient::new();
-    let result = client
-        .get_producer_search(None, None, None, None, None, Some(String::from("m")))
-        .await;
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn get_producers() {
-    let client = JikanClient::new();
-    let result = client.get_producers().await;
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
+ratelimited_test_runner!(
+    run_ratelimited_tests,
+    [
+        make_client_test!(get_producer_by_id, client, client.get_producer_by_id(1)),
+        make_client_test!(get_producer_full, client, client.get_producer_full_by_id(1)),
+        make_client_test!(
+            get_producer_external,
+            client,
+            client.get_producer_external(1)
+        ),
+        make_client_test!(
+            get_producer_search,
+            client,
+            client.get_producer_search(None, None, None, None, None, Some(String::from("m")))
+        ),
+        make_client_test!(get_producers, client, client.get_producers()),
+    ]
+);

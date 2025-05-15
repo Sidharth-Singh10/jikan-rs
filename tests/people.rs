@@ -1,85 +1,27 @@
-use crate::common::wait_between_tests;
-use jikan_rs::JikanClient;
-use serial_test::serial;
 mod common;
+use crate::common::macs::NamedTestJob;
 
-#[tokio::test]
-#[serial]
-async fn get_person_from_id() {
-    let client = JikanClient::new();
-    let result = client.get_person_by_id(1).await;
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn get_person_full() {
-    let client = JikanClient::new();
-    let result = client.get_person_by_id_full(1).await;
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn get_person_anime() {
-    let client = JikanClient::new();
-    let result = client.get_person_anime(1).await;
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn get_person_manga() {
-    let client = JikanClient::new();
-    let result = client.get_person_manga(2619).await; // Araki, Hirohiko
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn get_person_voice() {
-    let client = JikanClient::new();
-    let result = client.get_person_voice(195).await;
-    assert!(result.is_ok()); // Junichi Suwabe(Ryomen Sukuna)
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn get_person_pictures() {
-    let client = JikanClient::new();
-    let result = client.get_person_pictures(1).await;
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn get_person() {
-    let client = JikanClient::new();
-    let result = client.get_people().await;
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn get_person_search() {
-    let client = JikanClient::new();
-    let result = client
-        .get_people_search(
-            None,
-            None,
-            Some(String::from("Junichi Suwabe")),
-            None,
-            None,
-            None,
-        )
-        .await;
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
+ratelimited_test_runner!(
+    run_ratelimited_tests,
+    [
+        make_client_test!(get_person_by_id, client, client.get_person_by_id(1)),
+        make_client_test!(get_person_full, client, client.get_person_by_id_full(1)),
+        make_client_test!(get_person_anime, client, client.get_person_anime(1)),
+        make_client_test!(get_person_manga, client, client.get_person_manga(2619)), // Araki, Hirohiko
+        make_client_test!(get_person_voice, client, client.get_person_voice(195)), // Junichi Suwabe(Ryomen Sukuna)
+        make_client_test!(get_person_pictures, client, client.get_person_pictures(1)),
+        make_client_test!(get_people, client, client.get_people()),
+        make_client_test!(
+            get_people_search,
+            client,
+            client.get_people_search(
+                None,
+                None,
+                Some("Junichi Suwabe".to_string()),
+                None,
+                None,
+                None
+            )
+        ),
+    ]
+);

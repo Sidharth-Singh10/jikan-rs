@@ -1,144 +1,33 @@
-use crate::common::wait_between_tests;
-use jikan_rs::JikanClient;
-use serial_test::serial;
-
 mod common;
+use crate::common::macs::NamedTestJob;
 
-#[tokio::test]
-#[serial]
-async fn test_get_watch_recent_episodes() {
-    let client = JikanClient::new();
-    let result = client.get_watch_recent_episodes().await;
-
-    match result {
-        Ok(response) => {
-            assert!(
-                !response.data.is_empty(),
-                "Recent episodes response should not be empty"
-            );
-            assert!(
-                response
-                    .pagination
-                    .as_ref()
-                    .map(|p| p.last_visible_page)
-                    .unwrap_or(0)
-                    >= 1,
-                "Should have a valid page number"
-            );
-        }
-        Err(e) => panic!("Failed to fetch recent episodes: {}", e),
-    }
-
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn test_get_watch_popular_episodes() {
-    let client = JikanClient::new();
-    let result = client.get_watch_popular_episodes().await;
-
-    match result {
-        Ok(response) => {
-            assert!(
-                !response.data.is_empty(),
-                "Popular episodes response should not be empty"
-            );
-            assert!(
-                response
-                    .pagination
-                    .as_ref()
-                    .map(|p| p.last_visible_page)
-                    .unwrap_or(0)
-                    >= 1,
-                "Should have a valid page number"
-            );
-        }
-        Err(e) => panic!("Failed to fetch popular episodes: {}", e),
-    }
-
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn test_get_watch_recent_promos_no_page() {
-    let client = JikanClient::new();
-    let result = client.get_watch_recent_promos(None).await;
-
-    match result {
-        Ok(response) => {
-            assert!(
-                !response.data.is_empty(),
-                "Recent promos response should not be empty"
-            );
-            assert!(
-                response
-                    .pagination
-                    .as_ref()
-                    .map(|p| p.last_visible_page)
-                    .unwrap_or(0)
-                    >= 1,
-                "Should have a valid page number"
-            );
-        }
-        Err(e) => panic!("Failed to fetch recent promos without page: {}", e),
-    }
-
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn test_get_watch_recent_promos_with_page() {
-    let client = JikanClient::new();
-    let result = client.get_watch_recent_promos(Some(1)).await;
-    match result {
-        Ok(response) => {
-            assert!(
-                !response.data.is_empty(),
-                "Recent promos response should not be empty"
-            );
-            assert!(
-                response
-                    .pagination
-                    .as_ref()
-                    .map(|p| p.last_visible_page)
-                    .unwrap_or(0)
-                    >= 1,
-                "Should have a valid page number"
-            );
-        }
-        Err(e) => panic!("Failed to fetch recent promos with page: {}", e),
-    }
-
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn test_get_watch_popular_promos() {
-    let client = JikanClient::new();
-    let result = client.get_watch_popular_promos().await;
-
-    match result {
-        Ok(response) => {
-            assert!(
-                !response.data.is_empty(),
-                "Popular promos response should not be empty"
-            );
-            assert!(
-                response
-                    .pagination
-                    .as_ref()
-                    .map(|p| p.last_visible_page)
-                    .unwrap_or(0)
-                    >= 1,
-                "Should have a valid page number"
-            );
-        }
-        Err(e) => panic!("Failed to fetch popular promos: {}", e),
-    }
-
-    wait_between_tests().await;
-}
+ratelimited_test_runner!(
+    run_ratelimited_tests,
+    [
+        make_client_test!(
+            get_watch_popular_episodes,
+            client,
+            client.get_watch_popular_episodes()
+        ),
+        make_client_test!(
+            get_watch_recent_episodes,
+            client,
+            client.get_watch_recent_episodes()
+        ),
+        make_client_test!(
+            get_watch_recent_promos,
+            client,
+            client.get_watch_recent_promos(None)
+        ),
+        make_client_test!(
+            get_watch_recent_promos_with_page,
+            client,
+            client.get_watch_recent_promos(Some(1))
+        ),
+        make_client_test!(
+            get_watch_popular_promos,
+            client,
+            client.get_watch_popular_promos()
+        ),
+    ]
+);

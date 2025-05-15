@@ -1,103 +1,51 @@
-use crate::common::wait_between_tests;
-use jikan_rs::JikanClient;
+pub mod common;
+use crate::common::macs::NamedTestJob;
 use jikan_rs::common::enums::genre::GenreFilter;
-use serial_test::serial;
-mod common;
 
-#[tokio::test]
-#[serial]
-async fn get_anime_genres() {
-    let client = JikanClient::new();
-    let result = client.get_anime_genres(None).await;
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn get_anime_genres_genres() {
-    let client = JikanClient::new();
-    let result = client.get_anime_genres(Some(GenreFilter::Genres)).await;
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn get_anime_genres_explicit() {
-    let client = JikanClient::new();
-    let result = client
-        .get_anime_genres(Some(GenreFilter::ExplicitGenres))
-        .await;
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn get_anime_genres_themes() {
-    let client = JikanClient::new();
-    let result = client.get_anime_genres(Some(GenreFilter::Themes)).await;
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn get_anime_genres_demographics() {
-    let client = JikanClient::new();
-    let result = client
-        .get_anime_genres(Some(GenreFilter::Demographics))
-        .await;
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn get_manga_genres() {
-    let client = JikanClient::new();
-    let result = client.get_manga_genres(None).await;
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn get_manga_genres_genres() {
-    let client = JikanClient::new();
-    let result = client.get_manga_genres(Some(GenreFilter::Genres)).await;
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn get_manga_genres_explicit() {
-    let client = JikanClient::new();
-    let result = client
-        .get_manga_genres(Some(GenreFilter::ExplicitGenres))
-        .await;
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn get_manga_genres_themes() {
-    let client = JikanClient::new();
-    let result = client.get_manga_genres(Some(GenreFilter::Themes)).await;
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn get_manga_genres_demographics() {
-    let client = JikanClient::new();
-    let result = client
-        .get_manga_genres(Some(GenreFilter::Demographics))
-        .await;
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
+ratelimited_test_runner!(
+    run_ratelimited_tests,
+    [
+        make_client_test!(get_anime_genres, client, client.get_anime_genres(None)),
+        make_client_test!(
+            get_anime_genres_genres,
+            client,
+            client.get_anime_genres(Some(GenreFilter::Genres))
+        ),
+        make_client_test!(
+            get_anime_genres_explicit,
+            client,
+            client.get_anime_genres(Some(GenreFilter::ExplicitGenres))
+        ),
+        make_client_test!(
+            get_anime_genres_themes,
+            client,
+            client.get_anime_genres(Some(GenreFilter::Themes))
+        ),
+        make_client_test!(
+            get_anime_genres_demographics,
+            client,
+            client.get_anime_genres(Some(GenreFilter::Demographics))
+        ),
+        make_client_test!(get_manga_genres, client, client.get_manga_genres(None)),
+        make_client_test!(
+            get_manga_genres_genres,
+            client,
+            client.get_manga_genres(Some(GenreFilter::Genres))
+        ),
+        make_client_test!(
+            get_manga_genres_explicit,
+            client,
+            client.get_manga_genres(Some(GenreFilter::ExplicitGenres))
+        ),
+        make_client_test!(
+            get_manga_genres_themes,
+            client,
+            client.get_manga_genres(Some(GenreFilter::Themes))
+        ),
+        make_client_test!(
+            get_manga_genres_demographics,
+            client,
+            client.get_manga_genres(Some(GenreFilter::Demographics))
+        ),
+    ]
+);

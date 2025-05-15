@@ -1,185 +1,62 @@
-use crate::common::wait_between_tests;
 use jikan_rs::{
-    JikanClient, JikanError,
     anime::SearchParams,
     common::enums::anime::{AnimeOrder, AnimeRating, AnimeStatus, AnimeType},
     common::enums::common::Sort,
 };
-use serial_test::serial;
 mod common;
+use crate::common::macs::NamedTestJob;
 
-#[tokio::test]
-#[serial]
-async fn get_anime() {
-    let client = JikanClient::new();
-    let result = client.get_anime(1).await;
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn get_anime_search() {
-    let client = JikanClient::new();
-    let params = SearchParams {
-        q: Some("Death".to_string()),
-        status: Some(AnimeStatus::Complete),
-        sfw: Some(false),
-        limit: Some(10),
-        type_: Some(AnimeType::TV),
-        unapproved: Some(false),
-        page: Some(1),
-        // score: Some(8.62),   //* score can not be provided if there is an min_score or max_score
-        min_score: Some(2.00), //* min_score and max_score will be ignored if score is passed
-        max_score: Some(9.00),
-        rating: Some(AnimeRating::PG13),
-        genres: Some("10"),
-        genres_exclude: Some("2"),
-        order_by: Some(AnimeOrder::MalId),
-        sort: Some(Sort::Asc),
-        // letter: Some("d"),     //* this param can not be provided alongside the q param
-        producers: Some("102"),
-        start_date: Some("1997-01-01"), //* the param for 'start_date' and 'end_date' MUST follow the YYYY-MM-DD date format
-        end_date: Some("2025-05-01"),
-        ..Default::default()
-    };
-    let result = client.get_anime_search(Some(params)).await;
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn get_anime_full() {
-    let client = JikanClient::new();
-    let result = client.get_anime_full(52991).await;
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn get_anime_characters() {
-    let client = JikanClient::new();
-    let result = client.get_anime_characters(1).await;
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn get_anime_staff() {
-    let client = JikanClient::new();
-    let result = client.get_anime_staff(1).await;
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn get_anime_episodes() {
-    let client = JikanClient::new();
-    let result = client.get_anime_episodes(1, Some(1)).await;
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn get_anime_videos() {
-    let client = JikanClient::new();
-    let result = client.get_anime_videos(1).await;
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn get_anime_news() {
-    let client = JikanClient::new();
-    let result = client.get_anime_news(1, Some(1)).await;
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn get_anime_forum() {
-    let client = JikanClient::new();
-    let result = client.get_anime_forum(1, None).await;
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn get_anime_themes() {
-    let client = JikanClient::new();
-    let result = client.get_anime_themes(1).await;
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn get_anime_recommendations() {
-    let client = JikanClient::new();
-    let result = client.get_anime_recommendations(1).await;
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn get_anime_userupdates() {
-    let client = JikanClient::new();
-    let result = client.get_anime_userupdates(1, Some(1)).await;
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn get_anime_reviews() {
-    let client = JikanClient::new();
-    let result = client.get_anime_reviews(1, Some(1), None, None).await;
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn get_anime_external() {
-    let client = JikanClient::new();
-    let result = client.get_anime_external(1).await;
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn get_anime_streaming() {
-    let client = JikanClient::new();
-    let result = client.get_anime_streaming(1).await;
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn get_nonexistent_anime() {
-    let client = JikanClient::new();
-    let result = client.get_anime(999999999).await;
-    assert!(matches!(result, Err(JikanError::NotFound)));
-    wait_between_tests().await;
-}
-
-#[tokio::test]
-#[serial]
-async fn get_anime_relations() {
-    let client = JikanClient::new();
-    let result = client.get_anime_relations(51818).await;
-    println!("{:?}", result);
-    assert!(result.is_ok());
-    wait_between_tests().await;
-}
+ratelimited_test_runner!(
+    run_ratelimited_tests,
+    [
+        make_client_test!(get_anime, client, client.get_anime(1)),
+        make_client_test!(
+            get_anime_search,
+            client,
+            client.get_anime_search(Some(SearchParams {
+                q: Some("Death".to_string()),
+                status: Some(AnimeStatus::Complete),
+                limit: Some(10),
+                type_: Some(AnimeType::Movie),
+                order_by: Some(AnimeOrder::Title),
+                sort: Some(Sort::Asc),
+                rating: Some(AnimeRating::R),
+                ..Default::default()
+            }))
+        ),
+        make_client_test!(get_anime_full, client, client.get_anime_full(52991)),
+        make_client_test!(get_anime_characters, client, client.get_anime_characters(1)),
+        make_client_test!(get_anime_staff, client, client.get_anime_staff(1)),
+        make_client_test!(
+            get_anime_episodes,
+            client,
+            client.get_anime_episodes(1, None)
+        ),
+        make_client_test!(get_anime_videos, client, client.get_anime_videos(1)),
+        make_client_test!(get_anime_news, client, client.get_anime_news(1, None)),
+        make_client_test!(get_anime_forum, client, client.get_anime_forum(1, None)),
+        make_client_test!(get_anime_themes, client, client.get_anime_themes(1)),
+        make_client_test!(
+            get_anime_recommendations,
+            client,
+            client.get_anime_recommendations(1)
+        ),
+        make_client_test!(
+            get_anime_userupdates,
+            client,
+            client.get_anime_userupdates(1, None)
+        ),
+        make_client_test!(
+            get_anime_reviews,
+            client,
+            client.get_anime_reviews(1, None, None, None)
+        ),
+        make_client_test!(
+            get_anime_relations,
+            client,
+            client.get_anime_relations(51818)
+        ),
+        make_client_test!(get_anime_external, client, client.get_anime_external(1)),
+        make_client_test!(get_anime_streaming, client, client.get_anime_streaming(1)),
+    ]
+);

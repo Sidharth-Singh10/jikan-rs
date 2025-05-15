@@ -4,10 +4,32 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        group: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
-      - run: cargo test 
+      - name: Run tests
+        run: |
+          case ${{ matrix.group }} in
+            1) cargo test --test anime -- --show-output --nocapture;;
+            2) cargo test --test character -- --show-output --nocapture;;
+            3) cargo test --test manga -- --show-output --nocapture;;
+            4) cargo test --test people -- --show-output --nocapture;;
+            5) cargo test --test producer -- --show-output --nocapture;;
+            6) cargo test --test magazines -- --show-output --nocapture;;
+            7) cargo test --test watch -- --show-output --nocapture;;
+            8) cargo test --test seasons -- --show-output --nocapture;;
+            9) cargo test --test schedule -- --show-output --nocapture;;
+            10) cargo test --test clubs -- --show-output --nocapture;;
+            11) cargo test --test genre -- --show-output --nocapture;;
+            12) cargo test --test random -- --show-output --nocapture;;
+            13) cargo test --test top -- --show-output --nocapture;;
+            14) cargo test --test users -- --show-output --nocapture;;
+            15) cargo test --test review -- --show-output --nocapture;;
+            16) cargo test --test recommendations -- --show-output --nocapture;;
+          esac 
   fmt:
     name: Rustfmt
     runs-on: ubuntu-latest
