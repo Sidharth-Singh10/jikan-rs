@@ -46,6 +46,7 @@ pub enum JikanError {
 
 pub struct JikanClient {
     client: Client,
+    api_base_url: Option<String>,
 }
 
 impl JikanClient {
@@ -55,14 +56,29 @@ impl JikanClient {
             .build()
             .expect("Failed to create HTTP client");
 
-        Self { client }
+        Self {
+            client,
+            api_base_url: None,
+        }
+    }
+
+    pub fn set_api_base_url(mut self, api_base_url: String) -> Self {
+        self.api_base_url = Some(api_base_url);
+        self
+    }
+
+    fn get_api_base_url(&self) -> String {
+        match &self.api_base_url {
+            Some(url) => url.to_string(),
+            None => API_BASE_URL.to_string(),
+        }
     }
 
     pub async fn get<T>(&self, path: &str) -> Result<T, JikanError>
     where
         T: for<'de> Deserialize<'de>,
     {
-        let url = format!("{}{}", API_BASE_URL, path);
+        let url = format!("{}{}", self.get_api_base_url(), path);
         let response = self.client.get(&url).send().await?;
 
         match response.status() {
