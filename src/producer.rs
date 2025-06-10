@@ -27,7 +27,7 @@ impl JikanClient {
         &self,
         page: Option<i32>,
         limit: Option<i32>,
-        query: Option<i32>,
+        query: Option<String>,
         order_by: Option<ProducersOrder>,
         sort: Option<Sort>,
         letter: Option<String>,
@@ -41,7 +41,9 @@ impl JikanClient {
             params.push(format!("limit={}", lim));
         }
         if let Some(q) = query {
-            params.push(format!("q={}", q));
+            if !q.is_empty() {
+                params.push(format!("q={}", q));
+            }
         }
         if let Some(o) = order_by {
             params.push(format!("order_by={}", o.as_str()));
