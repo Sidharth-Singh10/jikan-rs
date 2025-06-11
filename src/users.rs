@@ -16,7 +16,7 @@ use crate::{
 };
 
 pub struct GetUsersParams {
-    pub page: Option<String>,
+    pub page: Option<u32>,
     pub limit: Option<u32>,
     pub q: Option<String>,
     pub gender: Option<Gender>,
@@ -64,11 +64,11 @@ impl JikanClient {
         }
 
         if let Some(min_a) = param.min_age {
-            params.push(format!("MinAge={}", min_a));
+            params.push(format!("minAge={}", min_a));
         }
 
         if let Some(max_a) = param.max_age {
-            params.push(format!("MaxAge={}", max_a));
+            params.push(format!("maxAge={}", max_a));
         }
 
         let query = if !params.is_empty() {
