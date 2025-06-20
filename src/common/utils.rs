@@ -1,6 +1,8 @@
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 
+use crate::common::response::MalCommonResponse;
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Pagination {
     pub last_visible_page: i32,
@@ -66,4 +68,16 @@ pub struct Score {
     pub score: i32,
     pub votes: i32,
     pub percentage: f32,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Relations {
+    pub relation: String,
+    pub entry: Vec<MalCommonResponse>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Theme {
+    pub openings: Vec<String>,
+    pub endings: Vec<String>,
 }
