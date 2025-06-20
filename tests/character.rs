@@ -1,6 +1,6 @@
 pub mod common;
 use crate::common::macs::NamedTestJob;
-use jikan_rs::common::enums::{character::CharacterOrder, common::Sort};
+use jikan_moe::common::enums::{character::CharacterOrder, common::Sort};
 
 ratelimited_test_runner!(
     run_ratelimited_tests,

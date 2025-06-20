@@ -1,4 +1,4 @@
-use jikan_rs::common::enums::{
+use jikan_moe::common::enums::{
     anime::{AnimeFilter, AnimeRating, AnimeType},
     manga::{MangaFilter, MangaType},
     reviews::ReviewType,

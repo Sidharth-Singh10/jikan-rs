@@ -1,4 +1,4 @@
-# Contributing to Jikan-rs
+# Contributing to Jikan_moe
 
 We are thrilled that you want to contribute to **Affinity Bot**! This document will guide you through the contribution process, from reporting issues to submitting pull requests.
 

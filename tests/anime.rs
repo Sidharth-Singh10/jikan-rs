@@ -1,4 +1,4 @@
-use jikan_rs::{
+use jikan_moe::{
     anime::SearchParams,
     common::enums::anime::{AnimeOrder, AnimeRating, AnimeStatus, AnimeType},
     common::enums::common::Sort,

@@ -1,6 +1,6 @@
 mod common;
 use crate::common::macs::NamedTestJob;
-use jikan_rs::JikanError;
+use jikan_moe::JikanError;
 
 ratelimited_test_runner!(
     run_ratelimited_tests,
