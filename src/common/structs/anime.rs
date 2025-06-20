@@ -1,5 +1,8 @@
 use crate::{
-    common::utils::{ExternalEntry, Relations, Theme}, response::MalCommonResponse, structs::{forum::ForumTopic, people::Person, watch::Trailer}, utils::{DateRange, Images, Score, Title}
+    common::utils::{ExternalEntry, Relations, Theme},
+    response::MalCommonResponse,
+    structs::{forum::ForumTopic, people::Person, watch::Trailer},
+    utils::{DateRange, Images, Score, Title},
 };
 use serde::{Deserialize, Serialize};
 
@@ -89,7 +92,7 @@ pub struct AnimeExtended {
     pub explicit_genres: Option<Vec<MalCommonResponse>>,
     pub themes: Option<Vec<MalCommonResponse>>,
     pub demographics: Option<Vec<MalCommonResponse>>,
-    pub relations: Relations,
+    pub relations: Vec<Relations>,
     pub theme: Theme,
     pub external: Vec<ExternalEntry>,
     pub streaming: Vec<ExternalEntry>,
