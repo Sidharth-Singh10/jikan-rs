@@ -1,6 +1,6 @@
 mod common;
 use crate::common::macs::NamedTestJob;
-use jikan_rs::{common::enums::season::SeasonFilter, seasons::SeasonQueryParams};
+use jikan_moe::{common::enums::season::SeasonFilter, seasons::SeasonQueryParams};
 
 ratelimited_test_runner!(
     run_ratelimited_tests,

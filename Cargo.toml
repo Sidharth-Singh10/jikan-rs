@@ -1,13 +1,13 @@
 [package]
-name = "jikan-rs"
+name = "jikan_moe"
 version = "0.2.2"
 edition = "2024"
 description = "Jikan-Rust is an Rust wrapper for the Jikan API, an open-source API for MyAnimeList. This library allows you to seamlessly interact with MyAnimeList's public data without needing authentication."
 license = "MIT"
-repository = "https://github.com/Sidharth-Singh10/jikan-rs/" 
+repository = "https://github.com/Sidharth-Singh10/jikan_moe/" 
 
 [dependencies]
-reqwest = "0.12.12"
+reqwest = { version = "0.12.12", default-features = false, features = ["json", "rustls-tls"] }
 serde = { version = "1.0", features = ["derive"] }
 tokio = { version = "1.0", features = ["full"] }
 thiserror = "1.0"

@@ -15,7 +15,7 @@ macro_rules! make_client_test {
             func: std::sync::Arc::new(|| {
                 tokio::spawn(async {
                     use tokio::time::{Duration, timeout};
-                    let $client_var = jikan_rs::JikanClient::new();
+                    let $client_var = jikan_moe::JikanClient::new();
                     let result = timeout(Duration::from_secs(10), async { $call.await }).await;
                     match result {
                         Ok(inner) => {
@@ -44,7 +44,7 @@ macro_rules! make_error_test {
             func: std::sync::Arc::new(|| {
                 tokio::spawn(async {
                     use tokio::time::{Duration, timeout};
-                    let $client_var = jikan_rs::JikanClient::new();
+                    let $client_var = jikan_moe::JikanClient::new();
                     let result = timeout(Duration::from_secs(10), async { $call.await }).await;
                     match result {
                         Ok(inner) => {
