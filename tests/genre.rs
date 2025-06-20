@@ -1,6 +1,6 @@
 pub mod common;
 use crate::common::macs::NamedTestJob;
-use jikan_rs::common::enums::genre::GenreFilter;
+use jikan_moe::common::enums::genre::GenreFilter;
 
 ratelimited_test_runner!(
     run_ratelimited_tests,

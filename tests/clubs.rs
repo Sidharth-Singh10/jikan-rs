@@ -1,4 +1,4 @@
-use jikan_rs::{
+use jikan_moe::{
     JikanError,
     clubs::ClubSearchParams,
     common::enums::{

@@ -1,4 +1,4 @@
-use jikan_rs::common::enums::{common::Sort, magazines::MagazineOrder};
+use jikan_moe::common::enums::{common::Sort, magazines::MagazineOrder};
 mod common;
 use crate::common::macs::NamedTestJob;
 
