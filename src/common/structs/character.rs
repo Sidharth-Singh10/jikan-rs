@@ -1,4 +1,4 @@
-use crate::{structs::anime::Anime, structs::manga::Manga, structs::people::Person, utils::Images};
+use crate::{common::response::MalCommonImageResponse, structs::{anime::Anime, manga::Manga}, utils::Images};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -27,8 +27,8 @@ pub struct MangaEntry {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PersonEntry {
+    pub person: MalCommonImageResponse,
     pub language: String,
-    pub person: Person,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -48,6 +48,8 @@ pub struct CharacterExtended {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CharacterRole {
-    pub character: Character,
+    pub character: MalCommonImageResponse,
     pub role: String,
+    pub favorites: Option<u32>,
+    pub voice_actors: Option<Vec<PersonEntry>>,
 }

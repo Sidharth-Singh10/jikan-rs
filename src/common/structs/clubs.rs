@@ -1,13 +1,13 @@
-use crate::{response::MalCommonResponse, utils::Images};
+use crate::{response::MalCommonTypeResponse, utils::Images};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Club {
-    pub mal_id: i32,
+    pub mal_id: u32,
     pub name: String,
     pub url: String,
     pub images: Option<Images>,
-    pub members: Option<i32>,
+    pub members: Option<u32>,
     pub category: Option<String>,
     pub created: Option<String>,
     pub access: Option<String>,
@@ -28,7 +28,7 @@ pub struct ClubStaff {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ClubRelations {
-    pub anime: Vec<MalCommonResponse>,
-    pub manga: Vec<MalCommonResponse>,
-    pub characters: Vec<MalCommonResponse>,
+    pub anime: Vec<MalCommonTypeResponse>,
+    pub manga: Vec<MalCommonTypeResponse>,
+    pub characters: Vec<MalCommonTypeResponse>,
 }

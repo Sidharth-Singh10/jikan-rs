@@ -26,13 +26,17 @@ pub struct PromoVideo {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Episode {
-    pub mal_id: i32,
+    pub mal_id: u32,
     pub url: Option<String>,
     pub title: String,
-    pub premium: Option<bool>,
-    pub episode: Option<String>,
+    pub title_japanese: Option<String>,
+    pub title_romanji: Option<String>,
+    pub duration: Option<String>,
     pub aired: Option<String>,
-    pub score: Option<f32>,
+    pub filler: Option<bool>,
+    pub recap: Option<bool>,
+    pub synopsis: Option<String>,
+    pub forum_url: Option<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -49,7 +53,22 @@ pub struct WatchPromoEntry {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct MusicVideoMeta {
+    pub title: String,
+    pub author: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct MusicVideo {
+    pub title: String,
+    pub video: Trailer,
+    pub meta: MusicVideoMeta,
+}
+
+// Am not sure about strucure of MusicVideo (It's same as docs but I was only getting empty array for all the anime I tried)
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Videos {
     pub promo: Vec<PromoVideo>,
     pub episodes: Vec<Episode>,
+    pub music_videos: Vec<MusicVideo>,
 }

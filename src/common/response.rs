@@ -1,4 +1,4 @@
-use crate::utils::Pagination;
+use crate::{common::utils::Images, utils::Pagination};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -8,9 +8,17 @@ pub struct Response<T> {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct MalCommonResponse {
+pub struct MalCommonTypeResponse {
     pub mal_id: u32,
     pub r#type: Option<String>,
     pub name: String,
     pub url: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct MalCommonImageResponse {
+    pub mal_id: u32,
+    pub url: String,
+    pub images: Option<Images>,
+    pub name: String,
 }

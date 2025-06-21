@@ -1,6 +1,6 @@
 use crate::{
     JikanClient, JikanError,
-    common::{response::Response, structs::anime::AnimeExtended},
+    common::{response::Response},
     enums::season::SeasonFilter,
     structs::{anime::Anime, season::SeasonInfo},
 };
@@ -105,7 +105,7 @@ impl JikanClient {
     pub async fn get_season_now(
         &self,
         params: Option<SeasonQueryParams>,
-    ) -> Result<Response<Vec<AnimeExtended>>, JikanError> {
+    ) -> Result<Response<Vec<Anime>>, JikanError> {
         let mut query_params = Vec::new();
 
         if let Some(p) = params {

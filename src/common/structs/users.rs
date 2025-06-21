@@ -1,6 +1,6 @@
 use crate::{
     common::utils::ExternalEntry,
-    response::MalCommonResponse,
+    response::MalCommonTypeResponse,
     structs::{anime::Anime, character::Character, manga::Manga, people::Person},
     utils::Images,
 };
@@ -17,29 +17,29 @@ pub struct User {
 pub struct UserAnimeInfo {
     pub days_watched: f32,
     pub mean_score: f32,
-    pub watching: i32,
-    pub completed: i32,
-    pub on_hold: i32,
-    pub dropped: i32,
-    pub plan_to_watch: i32,
-    pub total_entries: i32,
-    pub rewatched: i32,
-    pub episodes_watched: i32,
+    pub watching: u32,
+    pub completed: u32,
+    pub on_hold: u32,
+    pub dropped: u32,
+    pub plan_to_watch: u32,
+    pub total_entries: u32,
+    pub rewatched: u32,
+    pub episodes_watched: u32,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UserMangaInfo {
     pub days_read: f32,
     pub mean_score: f32,
-    pub reading: i32,
-    pub completed: i32,
-    pub on_hold: i32,
-    pub dropped: i32,
-    pub plan_to_read: i32,
-    pub total_entries: i32,
-    pub reread: i32,
-    pub chapters_read: i32,
-    pub volumes_read: i32,
+    pub reading: u32,
+    pub completed: u32,
+    pub on_hold: u32,
+    pub dropped: u32,
+    pub plan_to_read: u32,
+    pub total_entries: u32,
+    pub reread: u32,
+    pub chapters_read: u32,
+    pub volumes_read: u32,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -63,7 +63,7 @@ pub struct UserUpdate {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UserAnimeUpdates {
     pub entry: Anime,
-    pub score: Option<i32>,
+    pub score: Option<u32>,
     pub status: String,
     pub episodes_seen: Option<u32>,
     pub episodes_total: Option<u32>,
@@ -73,7 +73,7 @@ pub struct UserAnimeUpdates {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UserMangaUpdates {
     pub entry: Manga,
-    pub score: Option<i32>,
+    pub score: Option<u32>,
     pub status: String,
     pub chapters_read: Option<u32>,
     pub chapters_total: Option<u32>,
@@ -91,8 +91,8 @@ pub struct Friend {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UserHistory {
-    pub entry: MalCommonResponse,
-    pub increment: Option<i32>,
+    pub entry: MalCommonTypeResponse,
+    pub increment: Option<u32>,
     pub date: Option<String>,
 }
 

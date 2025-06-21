@@ -1,26 +1,20 @@
 // anime.rs
 use crate::{
-    JikanClient, JikanError,
-    common::structs::anime::AnimeExtended,
     enums::{
         anime::{AnimeOrder, AnimeRating, AnimeStatus, AnimeType},
         common::Sort,
         forum::ForumFilter,
-    },
-    format_search_query,
-    response::Response,
-    structs::{
+    }, format_search_query, response::Response, structs::{
         anime::{
-            Anime, AnimeForum, AnimeRelation, AnimeStatistics, AnimeThemes, MoreInfo, StaffMember,
+            Anime, AnimeExtended, AnimeRelation, AnimeStatistics, AnimeThemes, MoreInfo, StaffMember,
         },
         character::CharacterRole,
-        forum::NewsItem,
+        forum::{NewsItem, ForumTopic},
         recommendation::RecommendationAlt,
         reviews::Review,
         users::UserUpdate,
         watch::{Episode, Videos},
-    },
-    utils::{ExternalEntry, Images},
+    }, utils::{ExternalEntry, Images}, JikanClient, JikanError
 };
 
 #[derive(Default)]
@@ -47,7 +41,7 @@ pub struct SearchParams<'a> {
 }
 
 impl JikanClient {
-    pub async fn get_anime(&self, id: i32) -> Result<Response<Anime>, JikanError> {
+    pub async fn get_anime(&self, id: u32) -> Result<Response<Anime>, JikanError> {
         self.get(&format!("/anime/{}", id)).await
     }
 
@@ -150,24 +144,24 @@ impl JikanClient {
         self.get(&format!("/anime{}", query)).await
     }
 
-    pub async fn get_anime_full(&self, id: i32) -> Result<Response<AnimeExtended>, JikanError> {
+    pub async fn get_anime_full(&self, id: u32) -> Result<Response<AnimeExtended>, JikanError> {
         self.get(&format!("/anime/{}/full", id)).await
     }
 
     pub async fn get_anime_characters(
         &self,
-        id: i32,
+        id: u32,
     ) -> Result<Response<Vec<CharacterRole>>, JikanError> {
         self.get(&format!("/anime/{}/characters", id)).await
     }
 
-    pub async fn get_anime_staff(&self, id: i32) -> Result<Response<Vec<StaffMember>>, JikanError> {
+    pub async fn get_anime_staff(&self, id: u32) -> Result<Response<Vec<StaffMember>>, JikanError> {
         self.get(&format!("/anime/{}/staff", id)).await
     }
 
     pub async fn get_anime_episodes(
         &self,
-        id: i32,
+        id: u32,
         page: Option<u32>,
     ) -> Result<Response<Vec<Episode>>, JikanError> {
         let mut path = format!("/anime/{}/episodes", id);
@@ -181,45 +175,16 @@ impl JikanClient {
 
     pub async fn get_anime_episode(
         &self,
-        id: i32,
-        episode: i32,
+        id: u32,
+        episode: u32,
     ) -> Result<Response<Episode>, JikanError> {
         self.get(&format!("/anime/{}/episodes/{}", id, episode))
             .await
     }
 
-    pub async fn get_anime_videos(&self, id: i32) -> Result<Response<Videos>, JikanError> {
-        self.get(&format!("/anime/{}/videos", id)).await
-    }
-
-    pub async fn get_anime_statistics(
-        &self,
-        id: i32,
-    ) -> Result<Response<AnimeStatistics>, JikanError> {
-        self.get(&format!("/anime/{}/statistics", id)).await
-    }
-
-    pub async fn get_anime_themes(&self, id: i32) -> Result<Response<AnimeThemes>, JikanError> {
-        self.get(&format!("/anime/{}/themes", id)).await
-    }
-
-    pub async fn get_anime_external(
-        &self,
-        id: i32,
-    ) -> Result<Response<Vec<ExternalEntry>>, JikanError> {
-        self.get(&format!("/anime/{}/external", id)).await
-    }
-
-    pub async fn get_anime_streaming(
-        &self,
-        id: i32,
-    ) -> Result<Response<Vec<ExternalEntry>>, JikanError> {
-        self.get(&format!("/anime/{}/streaming", id)).await
-    }
-
     pub async fn get_anime_news(
         &self,
-        id: i32,
+        id: u32,
         page: Option<u32>,
     ) -> Result<Response<Vec<NewsItem>>, JikanError> {
         let mut path = format!("/anime/{}/news", id);
@@ -233,9 +198,9 @@ impl JikanClient {
 
     pub async fn get_anime_forum(
         &self,
-        id: i32,
+        id: u32,
         filter: Option<ForumFilter>,
-    ) -> Result<AnimeForum, JikanError> {
+    ) -> Result<Response<Vec<ForumTopic>>, JikanError> {
         let mut path = format!("/anime/{}/forum", id);
 
         if let Some(p) = filter {
@@ -245,9 +210,13 @@ impl JikanClient {
         self.get(&path).await
     }
 
+    pub async fn get_anime_videos(&self, id: u32) -> Result<Response<Videos>, JikanError> {
+        self.get(&format!("/anime/{}/videos", id)).await
+    }
+
     pub async fn get_anime_videos_episodes(
         &self,
-        id: i32,
+        id: u32,
         page: Option<u32>,
     ) -> Result<Response<Vec<Episode>>, JikanError> {
         let mut path = format!("/anime/{}/videos/episodes", id);
@@ -259,24 +228,31 @@ impl JikanClient {
         self.get(&path).await
     }
 
-    pub async fn get_anime_pictures(&self, id: i32) -> Result<Response<Vec<Images>>, JikanError> {
+    pub async fn get_anime_pictures(&self, id: u32) -> Result<Response<Vec<Images>>, JikanError> {
         self.get(&format!("/anime/{}/pictures", id)).await
     }
 
-    pub async fn get_anime_moreinfo(&self, id: i32) -> Result<Response<MoreInfo>, JikanError> {
+    pub async fn get_anime_statistics(
+        &self,
+        id: u32,
+    ) -> Result<Response<AnimeStatistics>, JikanError> {
+        self.get(&format!("/anime/{}/statistics", id)).await
+    }
+
+    pub async fn get_anime_moreinfo(&self, id: u32) -> Result<Response<MoreInfo>, JikanError> {
         self.get(&format!("/anime/{}/moreinfo", id)).await
     }
 
     pub async fn get_anime_recommendations(
         &self,
-        id: i32,
+        id: u32,
     ) -> Result<Response<Vec<RecommendationAlt>>, JikanError> {
         self.get(&format!("/anime/{}/recommendations", id)).await
     }
 
     pub async fn get_anime_userupdates(
         &self,
-        id: i32,
+        id: u32,
         page: Option<u32>,
     ) -> Result<Response<Vec<UserUpdate>>, JikanError> {
         let mut path = format!("/anime/{}/userupdates", id);
@@ -290,7 +266,7 @@ impl JikanClient {
 
     pub async fn get_anime_reviews(
         &self,
-        id: i32,
+        id: u32,
         page: Option<u32>,
         preliminary: Option<bool>,
         spoilers: Option<bool>,
@@ -318,8 +294,26 @@ impl JikanClient {
 
     pub async fn get_anime_relations(
         &self,
-        id: i32,
+        id: u32,
     ) -> Result<Response<Vec<AnimeRelation>>, JikanError> {
         self.get(&format!("/anime/{}/relations", id)).await
+    }
+
+    pub async fn get_anime_themes(&self, id: u32) -> Result<Response<AnimeThemes>, JikanError> {
+        self.get(&format!("/anime/{}/themes", id)).await
+    }
+
+    pub async fn get_anime_external(
+        &self,
+        id: u32,
+    ) -> Result<Response<Vec<ExternalEntry>>, JikanError> {
+        self.get(&format!("/anime/{}/external", id)).await
+    }
+
+    pub async fn get_anime_streaming(
+        &self,
+        id: u32,
+    ) -> Result<Response<Vec<ExternalEntry>>, JikanError> {
+        self.get(&format!("/anime/{}/streaming", id)).await
     }
 }

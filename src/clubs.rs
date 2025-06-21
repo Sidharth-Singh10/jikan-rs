@@ -102,13 +102,13 @@ pub struct ClubSearchParams {
 // }
 
 impl JikanClient {
-    pub async fn get_club_by_id(&self, id: i32) -> Result<Response<Club>, JikanError> {
+    pub async fn get_club_by_id(&self, id: u32) -> Result<Response<Club>, JikanError> {
         self.get(&format!("/clubs/{}", id)).await
     }
 
     pub async fn get_club_members(
         &self,
-        id: i32,
+        id: u32,
         page: Option<u32>,
     ) -> Result<Response<Vec<ClubMember>>, JikanError> {
         let mut params = Vec::new();
@@ -123,11 +123,11 @@ impl JikanClient {
         self.get(&format!("/clubs/{}/members{}", id, query)).await
     }
 
-    pub async fn get_club_staff(&self, id: i32) -> Result<Response<Vec<ClubStaff>>, JikanError> {
+    pub async fn get_club_staff(&self, id: u32) -> Result<Response<Vec<ClubStaff>>, JikanError> {
         self.get(&format!("/clubs/{}/staff", id)).await
     }
 
-    pub async fn get_club_relations(&self, id: i32) -> Result<Response<ClubRelations>, JikanError> {
+    pub async fn get_club_relations(&self, id: u32) -> Result<Response<ClubRelations>, JikanError> {
         self.get(&format!("/clubs/{}/relations", id)).await
     }
 

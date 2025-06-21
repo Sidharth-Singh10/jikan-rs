@@ -8,25 +8,25 @@ use crate::{
 };
 
 impl JikanClient {
-    pub async fn get_producer_by_id(&self, id: i32) -> Result<Response<Producer>, JikanError> {
+    pub async fn get_producer_by_id(&self, id: u32) -> Result<Response<Producer>, JikanError> {
         self.get(&format!("/producers/{}", id)).await
     }
 
-    pub async fn get_producer_full_by_id(&self, id: i32) -> Result<Response<Producer>, JikanError> {
+    pub async fn get_producer_full_by_id(&self, id: u32) -> Result<Response<Producer>, JikanError> {
         self.get(&format!("/producers/{}/full", id)).await
     }
 
     pub async fn get_producer_external(
         &self,
-        id: i32,
+        id: u32,
     ) -> Result<Response<Vec<ExternalEntry>>, JikanError> {
         self.get(&format!("/producers/{}/external", id)).await
     }
 
     pub async fn get_producer_search(
         &self,
-        page: Option<i32>,
-        limit: Option<i32>,
+        page: Option<u32>,
+        limit: Option<u32>,
         query: Option<String>,
         order_by: Option<ProducersOrder>,
         sort: Option<Sort>,
