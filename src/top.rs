@@ -7,8 +7,7 @@ use crate::{
     },
     response::Response,
     structs::{
-        anime::Anime, character::Character, manga::MangaExtended, people::Person,
-        reviews::Review,
+        anime::Anime, character::Character, manga::MangaExtended, people::Person, reviews::Review,
     },
 };
 

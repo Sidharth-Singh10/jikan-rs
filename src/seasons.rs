@@ -1,6 +1,6 @@
 use crate::{
     JikanClient, JikanError,
-    common::{response::Response},
+    common::response::Response,
     enums::season::SeasonFilter,
     structs::{anime::Anime, season::SeasonInfo},
 };

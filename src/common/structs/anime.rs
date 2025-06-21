@@ -1,5 +1,8 @@
 use crate::{
-    common::{response::MalCommonImageResponse, utils::ExternalEntry}, response::MalCommonTypeResponse, structs::{watch::Trailer}, utils::{DateRange, Images, Score, Title}
+    common::{response::MalCommonImageResponse, utils::ExternalEntry},
+    response::MalCommonTypeResponse,
+    structs::watch::Trailer,
+    utils::{DateRange, Images, Score, Title},
 };
 use serde::{Deserialize, Serialize};
 

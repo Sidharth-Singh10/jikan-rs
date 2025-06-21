@@ -1,4 +1,8 @@
-use crate::{common::response::MalCommonImageResponse, structs::{anime::Anime, manga::Manga}, utils::Images};
+use crate::{
+    common::response::MalCommonImageResponse,
+    structs::{anime::Anime, manga::Manga},
+    utils::Images,
+};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
