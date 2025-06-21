@@ -1,6 +1,6 @@
 use crate::{
-    common::{response::MalCommonImageResponse, utils::ExternalEntry},
-    response::MalCommonTypeResponse,
+    common::utils::ExternalEntry,
+    response::{MalCommonImageResponse, MalCommonTypeResponse},
     structs::watch::Trailer,
     utils::{DateRange, Images, Score, Title},
 };
