@@ -7,8 +7,7 @@ use crate::{
     },
     response::Response,
     structs::{
-        anime::AnimeExtended, character::Character, manga::MangaExtended, people::Person,
-        reviews::Review,
+        anime::Anime, character::Character, manga::MangaExtended, people::Person, reviews::Review,
     },
 };
 
@@ -21,7 +20,7 @@ impl JikanClient {
         sfw: Option<bool>,
         page: Option<u32>,
         limit: Option<u32>,
-    ) -> Result<Response<Vec<AnimeExtended>>, JikanError> {
+    ) -> Result<Response<Vec<Anime>>, JikanError> {
         let mut params = Vec::new();
 
         if let Some(t_str) = r#type {

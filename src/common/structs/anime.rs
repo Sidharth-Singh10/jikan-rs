@@ -1,6 +1,7 @@
 use crate::{
-    response::MalCommonResponse,
-    structs::{forum::ForumTopic, people::Person, watch::Trailer},
+    common::utils::ExternalEntry,
+    response::{MalCommonImageResponse, MalCommonTypeResponse},
+    structs::watch::Trailer,
     utils::{DateRange, Images, Score, Title},
 };
 use serde::{Deserialize, Serialize};
@@ -10,15 +11,39 @@ pub struct Anime {
     pub mal_id: u32,
     pub url: String,
     pub images: Images,
+    pub trailer: Option<Trailer>,
+    pub approved: Option<bool>,
+    pub titles: Option<Vec<Title>>,
     pub title: String,
-    pub start_year: Option<u32>,
     pub title_english: Option<String>,
     pub title_japanese: Option<String>,
+    pub title_synonyms: Option<Vec<String>>,
+    pub r#type: Option<String>,
+    pub source: Option<String>,
     pub episodes: Option<u32>,
     pub status: Option<String>,
-    pub score: Option<f32>,
-    pub synopsis: Option<String>,
+    pub airing: Option<bool>,
     pub aired: Option<DateRange>,
+    pub duration: Option<String>,
+    pub rating: Option<String>,
+    pub score: Option<f32>,
+    pub scored_by: Option<u32>,
+    pub rank: Option<u32>,
+    pub popularity: Option<u32>,
+    pub members: Option<u32>,
+    pub favorites: Option<u32>,
+    pub synopsis: Option<String>,
+    pub background: Option<String>,
+    pub season: Option<String>,
+    pub year: Option<u32>,
+    pub broadcast: Option<Broadcast>,
+    pub producers: Option<Vec<MalCommonTypeResponse>>,
+    pub licensors: Option<Vec<MalCommonTypeResponse>>,
+    pub studios: Option<Vec<MalCommonTypeResponse>>,
+    pub genres: Option<Vec<MalCommonTypeResponse>>,
+    pub explicit_genres: Option<Vec<MalCommonTypeResponse>>,
+    pub themes: Option<Vec<MalCommonTypeResponse>>,
+    pub demographics: Option<Vec<MalCommonTypeResponse>>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -60,18 +85,22 @@ pub struct AnimeExtended {
     pub season: Option<String>,
     pub year: Option<u32>,
     pub broadcast: Option<Broadcast>,
-    pub producers: Option<Vec<MalCommonResponse>>,
-    pub licensors: Option<Vec<MalCommonResponse>>,
-    pub studios: Option<Vec<MalCommonResponse>>,
-    pub genres: Option<Vec<MalCommonResponse>>,
-    pub explicit_genres: Option<Vec<MalCommonResponse>>,
-    pub themes: Option<Vec<MalCommonResponse>>,
-    pub demographics: Option<Vec<MalCommonResponse>>,
+    pub producers: Option<Vec<MalCommonTypeResponse>>,
+    pub licensors: Option<Vec<MalCommonTypeResponse>>,
+    pub studios: Option<Vec<MalCommonTypeResponse>>,
+    pub genres: Option<Vec<MalCommonTypeResponse>>,
+    pub explicit_genres: Option<Vec<MalCommonTypeResponse>>,
+    pub themes: Option<Vec<MalCommonTypeResponse>>,
+    pub demographics: Option<Vec<MalCommonTypeResponse>>,
+    pub relations: Option<Vec<AnimeRelation>>,
+    pub theme: Option<AnimeThemes>,
+    pub external: Option<Vec<ExternalEntry>>,
+    pub streaming: Option<Vec<ExternalEntry>>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct StaffMember {
-    pub person: Person,
+    pub person: MalCommonImageResponse,
     pub positions: Vec<String>,
 }
 
@@ -79,11 +108,6 @@ pub struct StaffMember {
 pub struct AnimeThemes {
     pub openings: Vec<String>,
     pub endings: Vec<String>,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct AnimeForum {
-    pub data: Vec<ForumTopic>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -98,17 +122,17 @@ pub struct MoreInfo {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AnimeStatistics {
-    pub watching: i32,
-    pub completed: i32,
-    pub on_hold: i32,
-    pub dropped: i32,
-    pub plan_to_watch: i32,
-    pub total: i32,
+    pub watching: u32,
+    pub completed: u32,
+    pub on_hold: u32,
+    pub dropped: u32,
+    pub plan_to_watch: u32,
+    pub total: u32,
     pub scores: Vec<Score>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct AnimeRelation {
     pub relation: String,
-    pub entry: Vec<MalCommonResponse>,
+    pub entry: Vec<MalCommonTypeResponse>,
 }

@@ -8,34 +8,34 @@ use crate::{
 };
 
 impl JikanClient {
-    pub async fn get_character_by_id(&self, id: i32) -> Result<Response<Character>, JikanError> {
+    pub async fn get_character_by_id(&self, id: u32) -> Result<Response<Character>, JikanError> {
         self.get(&format!("/characters/{}", id)).await
     }
 
     pub async fn get_character_full_by_id(
         &self,
-        id: i32,
+        id: u32,
     ) -> Result<Response<CharacterExtended>, JikanError> {
         self.get(&format!("/characters/{}/full", id)).await
     }
 
     pub async fn get_character_anime(
         &self,
-        id: i32,
+        id: u32,
     ) -> Result<Response<Vec<AnimeEntry>>, JikanError> {
         self.get(&format!("/characters/{}/anime", id)).await
     }
 
     pub async fn get_character_manga(
         &self,
-        id: i32,
+        id: u32,
     ) -> Result<Response<Vec<MangaEntry>>, JikanError> {
         self.get(&format!("/characters/{}/manga", id)).await
     }
 
     pub async fn get_character_voices(
         &self,
-        id: i32,
+        id: u32,
     ) -> Result<Response<Vec<PersonEntry>>, JikanError> {
         self.get(&format!("/characters/{}/voices", id)).await
     }
@@ -46,15 +46,15 @@ impl JikanClient {
 
     pub async fn get_character_pictures(
         &self,
-        id: i32,
+        id: u32,
     ) -> Result<Response<Vec<Images>>, JikanError> {
         self.get(&format!("/characters/{}/pictures", id)).await
     }
 
     pub async fn get_character_search(
         &self,
-        page: Option<i32>,
-        limit: Option<i32>,
+        page: Option<u32>,
+        limit: Option<u32>,
         q: Option<String>,
         order_by: Option<CharacterOrder>,
         sort: Option<Sort>,

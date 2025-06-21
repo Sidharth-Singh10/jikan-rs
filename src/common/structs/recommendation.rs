@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct RecommendationEntry {
-    pub mal_id: i32,
+    pub mal_id: u32,
     pub url: String,
     pub images: Images,
     pub title: String,
@@ -20,5 +20,6 @@ pub struct Recommendation {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct RecommendationAlt {
     pub entry: RecommendationEntry,
-    pub votes: i32,
+    pub url: Option<String>,
+    pub votes: u32,
 }

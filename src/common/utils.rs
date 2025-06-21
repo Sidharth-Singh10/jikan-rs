@@ -3,17 +3,17 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Pagination {
-    pub last_visible_page: i32,
+    pub last_visible_page: u32,
     pub has_next_page: bool,
-    pub current_page: Option<i32>,
+    pub current_page: Option<u32>,
     pub items: Option<PaginationItems>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct PaginationItems {
-    pub count: i32,
-    pub total: i32,
-    pub per_page: i32,
+    pub count: u32,
+    pub total: u32,
+    pub per_page: u32,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -63,7 +63,7 @@ pub struct ExternalEntry {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Score {
-    pub score: i32,
-    pub votes: i32,
+    pub score: u32,
+    pub votes: u32,
     pub percentage: f32,
 }

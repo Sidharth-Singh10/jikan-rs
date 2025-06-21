@@ -8,36 +8,36 @@ use crate::{
 };
 
 impl JikanClient {
-    pub async fn get_person_by_id(&self, id: i32) -> Result<Response<Person>, JikanError> {
+    pub async fn get_person_by_id(&self, id: u32) -> Result<Response<Person>, JikanError> {
         self.get(&format!("/people/{}", id)).await
     }
 
-    pub async fn get_person_by_id_full(&self, id: i32) -> Result<Response<Person>, JikanError> {
+    pub async fn get_person_by_id_full(&self, id: u32) -> Result<Response<Person>, JikanError> {
         self.get(&format!("/people/{}/full", id)).await
     }
 
     pub async fn get_person_anime(
         &self,
-        id: i32,
+        id: u32,
     ) -> Result<Response<Vec<PersonAnimePosition>>, JikanError> {
         self.get(&format!("/people/{}/anime", id)).await
     }
 
     pub async fn get_person_manga(
         &self,
-        id: i32,
+        id: u32,
     ) -> Result<Response<Vec<PersonMangaPosition>>, JikanError> {
         self.get(&format!("/people/{}/manga", id)).await
     }
 
     pub async fn get_person_voice(
         &self,
-        id: i32,
+        id: u32,
     ) -> Result<Response<Vec<PersonVoiceActingRole>>, JikanError> {
         self.get(&format!("/people/{}/voices", id)).await
     }
 
-    pub async fn get_person_pictures(&self, id: i32) -> Result<Response<Vec<Images>>, JikanError> {
+    pub async fn get_person_pictures(&self, id: u32) -> Result<Response<Vec<Images>>, JikanError> {
         self.get(&format!("/people/{}/pictures", id)).await
     }
 
@@ -47,8 +47,8 @@ impl JikanClient {
 
     pub async fn get_people_search(
         &self,
-        page: Option<i32>,
-        limit: Option<i32>,
+        page: Option<u32>,
+        limit: Option<u32>,
         query: Option<String>,
         order_by: Option<PeopleOrder>,
         sort: Option<Sort>,

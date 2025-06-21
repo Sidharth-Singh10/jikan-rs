@@ -80,7 +80,7 @@ impl JikanClient {
         self.get(&format!("/users/{}", query)).await
     }
 
-    pub async fn get_user_by_id(&self, id: i32) -> Result<Response<User>, JikanError> {
+    pub async fn get_user_by_id(&self, id: u32) -> Result<Response<User>, JikanError> {
         //Maybe handle this better?
         self.get(&format!("/users/userbyid/{}", id)).await
     }

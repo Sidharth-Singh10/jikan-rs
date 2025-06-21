@@ -1,5 +1,5 @@
 use crate::{
-    response::MalCommonResponse,
+    response::MalCommonTypeResponse,
     utils::{DateRange, Images, Score, Title},
 };
 use serde::{Deserialize, Serialize};
@@ -12,8 +12,8 @@ pub struct Manga {
     pub title: String,
     pub title_english: Option<String>,
     pub title_japanese: Option<String>,
-    pub chapters: Option<i32>,
-    pub volumes: Option<i32>,
+    pub chapters: Option<u32>,
+    pub volumes: Option<u32>,
     pub status: Option<String>,
     pub start_year: Option<u32>,
     pub score: Option<f32>,
@@ -45,18 +45,18 @@ pub struct MangaExtended {
     pub favorites: Option<u32>,
     pub synopsis: Option<String>,
     pub background: Option<String>,
-    pub authors: Vec<MalCommonResponse>,
-    pub serializations: Vec<MalCommonResponse>,
-    pub genres: Vec<MalCommonResponse>,
-    pub explicit_genres: Vec<MalCommonResponse>,
-    pub themes: Vec<MalCommonResponse>,
-    pub demographics: Vec<MalCommonResponse>,
+    pub authors: Vec<MalCommonTypeResponse>,
+    pub serializations: Vec<MalCommonTypeResponse>,
+    pub genres: Vec<MalCommonTypeResponse>,
+    pub explicit_genres: Vec<MalCommonTypeResponse>,
+    pub themes: Vec<MalCommonTypeResponse>,
+    pub demographics: Vec<MalCommonTypeResponse>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct MangaRelation {
     pub relation: String,
-    pub entry: Vec<MalCommonResponse>,
+    pub entry: Vec<MalCommonTypeResponse>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -66,11 +66,11 @@ pub struct MoreInfo {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct MangaStatistics {
-    pub reading: i32,
-    pub completed: i32,
-    pub on_hold: i32,
-    pub dropped: i32,
-    pub plan_to_read: i32,
-    pub total: i32,
+    pub reading: u32,
+    pub completed: u32,
+    pub on_hold: u32,
+    pub dropped: u32,
+    pub plan_to_read: u32,
+    pub total: u32,
     pub scores: Vec<Score>,
 }
